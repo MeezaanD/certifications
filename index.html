@@ -1,11 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Certifications</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/jpeg" href="/images/icon.jpeg" />
+    <title>Certificates</title>
+    <style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+		* {
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins', sans-serif;
+			scroll-behavior: smooth;
+		}
+        body {
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .certificates {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .certificate {
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+			margin: auto;
+			margin-bottom: 20px;
+            flex: 1 1 calc(33% - 20px);
+            max-width: calc(33% - 20px);
+        }
+        .certificate img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+        .certificate:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-	<h2>A List of my Certifications</h2>
+    <div class="container">
+        <h1>Certification: Meezaan Davids</h1>
+        <div class="certificates">
+            <div class="certificate">
+                <a href="images/getting-started-with-excel.jpeg" target="_blank">
+                    <img src="images/getting-started-with-excel.jpeg" alt="Getting Started with Excel">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/fullstack-bootcamp.jpg" target="_blank">
+                    <img src="images/fullstack-bootcamp.jpg" alt="Fullstack Bootcamp">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/it-academy.jpg" target="_blank">
+                    <img src="images/it-academy.jpg" alt="IT Academy">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/great-learning-data-science.jpg" target="_blank">
+                    <img src="images/great-learning-data-science.jpg" alt="Great Learning Data Science">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/great-learning-linux-tutorial.jpg" target="_blank">
+                    <img src="images/great-learning-linux-tutorial.jpg" alt="Great Learning Linux Tutorial">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/great-learning-machine-learn.jpg" target="_blank">
+                    <img src="images/great-learning-machine-learn.jpg" alt="Great Learning Machine Learning">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/udemy-master-go.jpg" target="_blank">
+                    <img src="images/udemy-master-go.jpg" alt="Udemy Master Go">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/udemy-typescript.jpg" target="_blank">
+                    <img src="images/udemy-typescript.jpg" alt="Udemy TypeScript">
+                </a>
+            </div>
+            <div class="certificate">
+                <a href="images/udemy-web-go.jpg" target="_blank">
+                    <img src="images/udemy-web-go.jpg" alt="Udemy Web Go">
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
