@@ -1,111 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/jpeg" href="/images/icon.jpeg" />
-    <title>Certificates</title>
+    <link rel="icon" type="image/jpeg" href="images/icon.jpeg" />
+    <title>Academic Transcript – Meezaan Davids</title>
     <style>
-		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-		* {
-			padding: 0;
-			margin: 0;
-			box-sizing: border-box;
-			font-family: 'Poppins', sans-serif;
-			scroll-behavior: smooth;
-		}
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* ── Background ───────────────────────────── */
         body {
-            background-color: #f4f4f4;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #f0f0f0 0%, #fafafa 50%, #f5f5f5 100%);
+            background-attachment: fixed;
+            color: rgba(0, 0, 0, 0.82);
         }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
+
+        /* Subtle neutral orbs for depth */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
         }
-        h1 {
+
+        body::before {
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, transparent 70%);
+            top: -80px;
+            left: -80px;
+        }
+
+        body::after {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+        }
+
+        /* ── Header ───────────────────────────────── */
+        .page-header {
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.04);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 52px 0 38px;
             text-align: center;
-            margin-bottom: 40px;
-            color: #333;
         }
-        .certificates {
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #111111;
+        }
+
+        .page-header p {
+            font-size: 0.82rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 8px;
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        .header-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.2);
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ── Layout ───────────────────────────────── */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* ── Section headings ─────────────────────── */
+        .section-title {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.4);
+            margin: 44px 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+        }
+
+        /* ── Glass cards ──────────────────────────── */
+        .entry {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-left: 3px solid rgba(0, 0, 0, 0.35);
+            border-radius: 16px;
+            padding: 26px 28px;
+            margin-bottom: 18px;
+            position: relative;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .entry:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        .entry.in-progress {
+            border-left-color: rgba(0, 0, 0, 0.18);
+            border-left-style: dashed;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .entry-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.88);
+        }
+
+        .entry-institution {
+            font-size: 0.82rem;
+            color: rgba(0, 0, 0, 0.48);
+            font-weight: 400;
+            margin-top: 3px;
+        }
+
+        .entry-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* ── Badges ───────────────────────────────── */
+        .badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 3px 11px;
+            border-radius: 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .badge-completed {
+            background: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(0, 0, 0, 0.14);
+        }
+
+        .badge-progress {
+            background: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .entry-date {
+            font-size: 0.72rem;
+            color: rgba(0, 0, 0, 0.35);
+            font-weight: 400;
+        }
+
+        /* ── Body content ─────────────────────────── */
+        .entry-body {
+            margin-top: 16px;
+        }
+
+        .entry-description {
+            font-size: 0.8rem;
+            color: rgba(0, 0, 0, 0.5);
+            line-height: 1.75;
+            margin-bottom: 12px;
+        }
+
+        .entry-detail {
+            font-size: 0.76rem;
+            color: rgba(0, 0, 0, 0.45);
+            margin-bottom: 4px;
+        }
+
+        .entry-detail strong {
+            color: rgba(0, 0, 0, 0.72);
+        }
+
+        /* ── Tags ─────────────────────────────────── */
+        .tag-group {
+            margin-top: 14px;
+        }
+
+        .tag-group-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .tags {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            gap: 6px;
         }
-        .certificate {
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin: 10px;
+
+        .tag {
+            background: rgba(0, 0, 0, 0.05);
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 0.7rem;
+            font-weight: 400;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .tag.tech {
+            background: rgba(0, 0, 0, 0.07);
+            color: rgba(0, 0, 0, 0.72);
+            border-color: rgba(0, 0, 0, 0.14);
+        }
+
+        /* ── Certificate button ───────────────────── */
+        .cert-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 18px;
+            padding: 8px 18px;
+            background: rgba(0, 0, 0, 0.05);
+            color: rgba(0, 0, 0, 0.72);
+            font-size: 0.74rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-decoration: none;
+            border: 1px solid rgba(0, 0, 0, 0.15);
             border-radius: 8px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+
+        .cert-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 0, 0, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .cert-btn svg {
+            flex-shrink: 0;
+        }
+
+        /* ── Modal overlay ────────────────────────── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: rgba(245, 245, 245, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.2s;
-			margin: auto;
-			margin-bottom: 20px;
-            flex: 1 1 calc(33% - 20px);
-            max-width: calc(33% - 20px);
-        }
-        .certificate img {
+            max-width: 860px;
             width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            cursor: pointer;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            position: relative;
         }
-        .certificate:hover {
-            transform: scale(1.05);
+
+        .modal-box img {
+            width: 100%;
+            display: block;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            background: rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* ── Footer ───────────────────────────────── */
+        .page-footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(0, 0, 0, 0.2);
+            padding: 24px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        /* ── PDF button ───────────────────────────── */
+        .pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 22px;
+            padding: 10px 24px;
+            background: rgba(0, 0, 0, 0.06);
+            color: rgba(0, 0, 0, 0.75);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            border: 1px solid rgba(0, 0, 0, 0.16);
+            border-radius: 10px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .pdf-btn:hover {
+            background: rgba(0, 0, 0, 0.12);
+            border-color: rgba(0, 0, 0, 0.32);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pdf-btn.loading {
+            opacity: 0.45;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* ── Print / PDF overrides ────────────────── */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+                color: #000;
+            }
+
+            .entry {
+                box-shadow: none;
+                border-radius: 0;
+                background: #f8f8f8;
+                border-left-color: #333;
+                border-color: #ddd;
+                color: #000;
+            }
+
+            .page-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background: #111 !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .entry-header {
+                flex-direction: column;
+            }
+
+            .entry-meta {
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Certification: Meezaan Davids</h1>
-        <div class="certificates">
-            <div class="certificate">
-                <a href="images/meezaan-zaio.png" target="_blank">
-                    <img src="images/meezaan-zaio.png" alt="ZAIO Higher certificate">
-                </a>
+
+    <!-- ── Page Header ───────────────────────────── -->
+    <div id="transcript-content">
+        <header class="page-header">
+            <h1>Meezaan Davids</h1>
+            <p>Academic Transcript</p>
+            <div class="header-divider"></div>
+            <div style="margin-top:4px;">
+                <button class="pdf-btn no-print" id="pdfBtn" onclick="generatePDF()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PDF
+                </button>
             </div>
-            <div class="certificate">
-                <a href="images/fullstack-bootcamp.jpg" target="_blank">
-                    <img src="images/fullstack-bootcamp.jpg" alt="Fullstack Bootcamp">
-                </a>
+        </header>
+
+        <div class="container">
+
+            <!-- ══════════════════════════════════════════
+             FORMAL DEGREE
+        ════════════════════════════════════════════ -->
+            <p class="section-title">Formal Degree</p>
+
+            <div class="entry in-progress">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Bachelor of Commerce in Information and Technology Management</div>
+                        <div class="entry-institution">MANCOSA &nbsp;·&nbsp; NQF Level 7</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-progress">In Progress</span>
+                        <span class="entry-date">January 2026 – November 2028 (Expected)</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <p class="entry-description">
+                        Currently pursuing a Bachelor of Commerce with a specialisation in Information and Technology
+                        Management at NQF Level 7. The programme covers strategic IT management, business systems, data
+                        management, project management, and digital transformation.
+                    </p>
+                    <div class="tag-group">
+                        <div class="tag-group-label">Focus Areas</div>
+                        <div class="tags">
+                            <span class="tag">IT Management</span>
+                            <span class="tag">Business Systems</span>
+                            <span class="tag">Data Management</span>
+                            <span class="tag">Project Management</span>
+                            <span class="tag">Digital Transformation</span>
+                            <span class="tag">Strategic Management</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/it-academy.jpg" target="_blank">
-                    <img src="images/it-academy.jpg" alt="IT Academy">
-                </a>
+
+            <!-- ══════════════════════════════════════════
+             BOOTCAMPS & INSTITUTIONS
+        ════════════════════════════════════════════ -->
+            <p class="section-title">Bootcamps &amp; Institutions</p>
+
+            <!-- Zaio -->
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">6-Month Full Stack Web Developer Bootcamp</div>
+                        <div class="entry-institution">Zaio</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                        <span class="entry-date">Completed 10 July 2025</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <p class="entry-description">
+                        Successfully completed all requirements of the Zaio 6-month Full Stack Bootcamp. This program
+                        included practical projects in front-end and back-end development using modern frameworks,
+                        database
+                        management, deployment, and version control.
+                    </p>
+                    <p class="entry-detail"><strong>Certificate ID:</strong> 0305245105088</p>
+                    <div class="tag-group">
+                        <div class="tag-group-label">Technologies</div>
+                        <div class="tags">
+                            <span class="tag tech">HTML</span>
+                            <span class="tag tech">CSS</span>
+                            <span class="tag tech">JavaScript</span>
+                            <span class="tag tech">React</span>
+                            <span class="tag tech">Node.js</span>
+                            <span class="tag tech">Python</span>
+                            <span class="tag tech">MongoDB</span>
+                            <span class="tag tech">Firestore</span>
+                        </div>
+                    </div>
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/meezaan-zaio.png', 'Zaio Full Stack Bootcamp'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/great-learning-data-science.jpg" target="_blank">
-                    <img src="images/great-learning-data-science.jpg" alt="Great Learning Data Science">
-                </a>
+
+            <!-- Life Choices -->
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Coding Course (Full-Stack)</div>
+                        <div class="entry-institution">Life Choices</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                        <span class="entry-date">September 2022 – March 2023</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <div class="tag-group">
+                        <div class="tag-group-label">Modules</div>
+                        <div class="tags">
+                            <span class="tag">Introduction to Computing</span>
+                            <span class="tag">HTML / CSS / Bootstrap</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Databases using MySQL</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">Capstone Project</span>
+                            <span class="tag">Life Skills</span>
+                            <span class="tag">Personal &amp; Professional Development</span>
+                        </div>
+                    </div>
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/fullstack-bootcamp.jpg', 'Life Choices – Full-Stack Coding Course'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/great-learning-linux-tutorial.jpg" target="_blank">
-                    <img src="images/great-learning-linux-tutorial.jpg" alt="Great Learning Linux Tutorial">
-                </a>
+
+            <!-- IT Academy -->
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Software Development</div>
+                        <div class="entry-institution">IT Academy &nbsp;·&nbsp; Course Code: C01191</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                        <span class="entry-date">March 2022 – March 2023</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <div class="tag-group">
+                        <div class="tag-group-label">Subjects &amp; Certifications</div>
+                        <div class="tags">
+                            <span class="tag">98-361: MTA Software Fundamentals</span>
+                            <span class="tag">98-364: MTA Database Fundamentals</span>
+                            <span class="tag">70-480: HTML5, JS &amp; CSS3</span>
+                            <span class="tag">70-486: ASP.NET MVC Web Apps</span>
+                            <span class="tag">70-761: SQL Server 2016 Query</span>
+                            <span class="tag">70-483: Programming in C#</span>
+                            <span class="tag">70-357: Developing Mobile Apps</span>
+                            <span class="tag">1Z0-815: Java SE 11 Programmer I</span>
+                            <span class="tag">1Z0-816: Java SE 11 Programmer II</span>
+                            <span class="tag">AZ-900: Microsoft Azure Fundamentals</span>
+                            <span class="tag">AZ-204: Developing Solutions for Azure</span>
+                            <span class="tag">AZ-400: Azure DevOps Solutions</span>
+                            <span class="tag">70-487: Azure &amp; Web Services</span>
+                            <span class="tag">Python: Getting Started</span>
+                            <span class="tag">Python: Complex Data Types</span>
+                            <span class="tag">Python: Conditionals &amp; Loops</span>
+                            <span class="tag">BH0-010: Software Testing</span>
+                            <span class="tag">SAA-C01: AWS Solutions Architect</span>
+                            <span class="tag">DVA-001: AWS Certified Developer</span>
+                        </div>
+                    </div>
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/it-academy.jpg', 'IT Academy – Software Development'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/great-learning-machine-learn.jpg" target="_blank">
-                    <img src="images/great-learning-machine-learn.jpg" alt="Great Learning Machine Learning">
-                </a>
+
+            <!-- ══════════════════════════════════════════
+             ONLINE COURSES — UDEMY
+        ════════════════════════════════════════════ -->
+            <p class="section-title">Online Courses — Udemy</p>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Master Go Programming</div>
+                        <div class="entry-institution">Udemy</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/udemy-master-go.jpg', 'Udemy – Master Go Programming'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/udemy-master-go.jpg" target="_blank">
-                    <img src="images/udemy-master-go.jpg" alt="Udemy Master Go">
-                </a>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">TypeScript: The Complete Developer's Guide</div>
+                        <div class="entry-institution">Udemy</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/udemy-typescript.jpg', 'Udemy – TypeScript: The Complete Developer\'s Guide'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/udemy-typescript.jpg" target="_blank">
-                    <img src="images/udemy-typescript.jpg" alt="Udemy TypeScript">
-                </a>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Web Development with Go</div>
+                        <div class="entry-institution">Udemy</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/udemy-web-go.jpg', 'Udemy – Web Development with Go'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
-            <div class="certificate">
-                <a href="images/udemy-web-go.jpg" target="_blank">
-                    <img src="images/udemy-web-go.jpg" alt="Udemy Web Go">
-                </a>
+
+            <!-- ══════════════════════════════════════════
+             ONLINE COURSES — GREAT LEARNING
+        ════════════════════════════════════════════ -->
+            <p class="section-title">Online Courses — Great Learning</p>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Data Science</div>
+                        <div class="entry-institution">Great Learning</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/great-learning-data-science.jpg', 'Great Learning – Data Science'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
             </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Linux Tutorial</div>
+                        <div class="entry-institution">Great Learning</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/great-learning-linux-tutorial.jpg', 'Great Learning – Linux Tutorial'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <div>
+                        <div class="entry-title">Machine Learning</div>
+                        <div class="entry-institution">Great Learning</div>
+                    </div>
+                    <div class="entry-meta">
+                        <span class="badge badge-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="entry-body">
+                    <a class="cert-btn" href="#"
+                        onclick="openModal('images/great-learning-machine-learn.jpg', 'Great Learning – Machine Learning'); return false;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        View Certificate
+                    </a>
+                </div>
+            </div>
+
+        </div><!-- /container -->
+
+        <footer class="page-footer">
+            &copy; 2026 Meezaan Davids &nbsp;·&nbsp; Academic Transcript
+        </footer>
+    </div><!-- /transcript-content -->
+
+    <!-- ── Certificate Modal ─────────────────────── -->
+    <div class="modal-overlay" id="certModal" onclick="closeModal(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModalBtn()">&#x2715;</button>
+            <img id="modalImg" src="" alt="">
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        function generatePDF() {
+            const btn = document.getElementById('pdfBtn');
+            btn.classList.add('loading');
+            btn.textContent = 'Generating…';
+
+            // Temporarily hide interactive-only elements inside the capture area
+            const noPrint = document.querySelectorAll('#transcript-content .no-print, #transcript-content .cert-btn');
+            noPrint.forEach(el => el.style.display = 'none');
+
+            const element = document.getElementById('transcript-content');
+
+            const opt = {
+                margin: [10, 10, 10, 10],   // top, left, bottom, right (mm)
+                filename: 'Meezaan_Davids_Academic_Transcript.pdf',
+                image: { type: 'jpeg', quality: 0.97 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#eef2f7'
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => {
+                    // Restore hidden elements
+                    noPrint.forEach(el => el.style.display = '');
+                    btn.classList.remove('loading');
+                    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
+                })
+                .catch(() => {
+                    noPrint.forEach(el => el.style.display = '');
+                    btn.classList.remove('loading');
+                    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF`;
+                });
+        }
+
+        function openModal(src, alt) {
+            const modal = document.getElementById('certModal');
+            document.getElementById('modalImg').src = src;
+            document.getElementById('modalImg').alt = alt;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModalBtn() {
+            document.getElementById('certModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function closeModal(e) {
+            if (e.target === document.getElementById('certModal')) {
+                closeModalBtn();
+            }
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeModalBtn();
+        });
+    </script>
+
 </body>
+
 </html>
